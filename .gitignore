@@ -40,3 +40,12 @@ yarn-error.log*
 **/*.log
 package-lock.json
 **/*.bun
+
+# Env
+.env
+.env.*
+!.env.example
+!.env.test
+
+# Docker
+.docker/
