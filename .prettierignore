@@ -1,0 +1,8 @@
+node_modules/
+.docker/
+.dockerignore
+.editorconfig
+.gitignore
+.env
+.env.*
+bun.lockb

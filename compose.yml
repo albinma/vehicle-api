@@ -2,7 +2,7 @@ services:
   mssql:
     image: mcr.microsoft.com/azure-sql-edge
     ports:
-      - "${DATABASE_PORT}:${DATABASE_PORT}"
+      - '${DATABASE_PORT}:${DATABASE_PORT}'
     environment:
       ACCEPT_EULA: 1
       MSSQL_SA_PASSWORD: ${DATABASE_PASSWORD}
