@@ -4,15 +4,23 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"dev": "bun run --watch src/index.ts",
-		"format": "prettier --write .",
-		"format:check": "prettier --check ."
+		"lint": "bun format && eslint .",
+		"lint:fix": "bun format:fix && eslint . --fix",
+		"format": "prettier --check .",
+		"format:fix": "prettier --write ."
 	},
 	"dependencies": {
 		"elysia": "latest"
 	},
 	"devDependencies": {
+		"@types/eslint": "8.56.10",
+		"@types/eslint-config-prettier": "6.11.3",
 		"bun-types": "latest",
-		"prettier": "3.3.3"
+		"eslint": "9.7.0",
+		"eslint-config-prettier": "9.1.0",
+		"globals": "15.8.0",
+		"prettier": "3.3.3",
+		"typescript-eslint": "7.16.1"
 	},
 	"module": "src/index.js"
 }
