@@ -1,6 +1,7 @@
 import cors from '@elysiajs/cors';
 import Elysia from 'elysia';
 import { helmet } from 'elysia-helmet';
+import { CUSTOM_HEADERS } from 'src/constants/headers';
 
 export const createApp = () => {
 	const app = new Elysia()
@@ -13,6 +14,9 @@ export const createApp = () => {
 		)
 		// Adds a request id to the context
 		.decorate('id', crypto.randomUUID())
+		.onRequest(({ id, set }) => {
+			set.headers[CUSTOM_HEADERS.RequestId] = id;
+		})
 		.get('/', () => 'Hello Elysia');
 
 	return app;
