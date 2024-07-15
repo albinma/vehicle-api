@@ -1,0 +1,28 @@
+{
+	"clientName": "Thunder Client",
+	"collectionName": "vehicle-api",
+	"collectionId": "f04e0575-f786-469d-8b1b-5e0abfadb97b",
+	"dateExported": "2024-07-15T22:21:52.154Z",
+	"version": "1.2",
+	"folders": [],
+	"requests": [
+		{
+			"_id": "61e2f4a8-c5ad-45b7-825e-825f8fd92099",
+			"colId": "f04e0575-f786-469d-8b1b-5e0abfadb97b",
+			"containerId": "",
+			"name": "/",
+			"url": "http://localhost:3000",
+			"method": "GET",
+			"sortNum": 10000,
+			"created": "2024-07-15T22:20:30.073Z",
+			"modified": "2024-07-15T22:20:35.649Z",
+			"headers": []
+		}
+	],
+	"settings": {
+		"options": {
+			"baseUrl": "http://localhost:3000"
+		}
+	},
+	"ref": "-Zenv_CGHi1atkbNZ79rMRKMkSHVjn83JKd9Rt2EkLec9HJZyieSp8sIKaPqrq9_TdJKxsJDq4OdD01moiI6vQ"
+}

@@ -11,7 +11,9 @@
 		"prepare": "husky"
 	},
 	"dependencies": {
-		"elysia": "latest"
+		"@elysiajs/cors": "1.0.5",
+		"elysia": "latest",
+		"elysia-helmet": "2.0.0"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "19.3.0",
