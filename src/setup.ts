@@ -15,6 +15,9 @@ export const createApp = () => {
 		)
 		// Adds a request id to the context
 		.decorate('id', crypto.randomUUID())
+		.onRequest(({ id, set }) => {
+			set.headers[CUSTOM_HEADERS.RequestId] = id;
+		})
 		.use(
 			logger.into({
 				customProps({ id, params, query, headers }) {
@@ -27,9 +30,6 @@ export const createApp = () => {
 				},
 			})
 		)
-		.onRequest(({ id, set }) => {
-			set.headers[CUSTOM_HEADERS.RequestId] = id;
-		})
 		.get('/', ({ log }) => {
 			log.info('test');
 			return;

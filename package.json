@@ -3,6 +3,7 @@
 	"version": "1.0.50",
 	"scripts": {
 		"dev": "bun run --watch src/index.ts ",
+		"test": "LOG_LEVEL=error NODE_ENV=test bun test",
 		"lint": "bun format && eslint .",
 		"lint:fix": "bun format:fix && eslint . --fix",
 		"format": "prettier --check .",
