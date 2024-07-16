@@ -13,6 +13,7 @@
 	"dependencies": {
 		"@bogeychan/elysia-logger": "0.1.0",
 		"@elysiajs/cors": "1.0.5",
+		"@elysiajs/swagger": "1.1.0",
 		"@sinclair/typebox": "0.32.34",
 		"elysia": "latest",
 		"elysia-helmet": "2.0.0",

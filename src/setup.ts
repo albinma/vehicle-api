@@ -1,4 +1,5 @@
 import cors from '@elysiajs/cors';
+import swagger from '@elysiajs/swagger';
 import Elysia, { t } from 'elysia';
 import { helmet } from 'elysia-helmet';
 import { CUSTOM_HEADERS } from 'src/constants/headers';
@@ -30,16 +31,50 @@ export const createApp = () => {
 				},
 			})
 		)
-		.get(
-			'/',
-			() => ({
-				message: 'Hi!',
-			}),
-			{
-				response: t.Object({
-					message: t.String(),
-				}),
-			}
+		.use(
+			swagger({
+				documentation: {
+					tags: [
+						{ name: 'App', description: 'General endpoints' },
+						{ name: 'Search', description: 'Search endpoints' },
+					],
+				},
+			})
+		)
+		.get('/', () => ({}))
+		.group('/api/v1', (api) =>
+			api.get(
+				'/vin/:vin',
+				({ params: { vin } }) => {
+					return {
+						vin,
+						suggestedVin: null,
+						make: 'Toyota',
+						model: 'Tacoma',
+						year: 2002,
+						attributes: {
+							engine: 'V6',
+							test: 45,
+						},
+					};
+				},
+				{
+					params: t.Object({
+						vin: t.String({ minLength: 17, maxLength: 17 }),
+					}),
+					response: t.Object({
+						vin: t.String({ minLength: 17, maxLength: 17 }),
+						suggestedVin: t.Nullable(t.String({ minLength: 17, maxLength: 17 })),
+						make: t.String(),
+						model: t.String(),
+						year: t.Number(),
+						attributes: t.Nullable(t.Object({}, { additionalProperties: t.Union([t.String(), t.Number()]) })),
+					}),
+					detail: {
+						tags: ['Search'],
+					},
+				}
+			)
 		);
 
 	return app;
