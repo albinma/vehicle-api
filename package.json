@@ -8,7 +8,8 @@
 		"lint:fix": "bun format:fix && eslint . --fix",
 		"format": "prettier --check .",
 		"format:fix": "prettier --write .",
-		"prepare": "husky"
+		"prepare": "husky",
+		"db:init": "bun run src/database/scripts/initdb.ts"
 	},
 	"dependencies": {
 		"@bogeychan/elysia-logger": "0.1.0",
@@ -17,7 +18,11 @@
 		"@sinclair/typebox": "0.32.34",
 		"elysia": "latest",
 		"elysia-helmet": "2.0.0",
-		"pino-pretty": "11.2.1"
+		"knex": "3.1.0",
+		"kysely": "0.27.4",
+		"pino-pretty": "11.2.1",
+		"tarn": "3.0.2",
+		"tedious": "18.2.4"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "19.3.0",

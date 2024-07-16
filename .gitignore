@@ -49,3 +49,6 @@ package-lock.json
 
 # Docker
 .docker/
+
+# Database Backup
+data/database/**/*.bak

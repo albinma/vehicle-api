@@ -8,3 +8,4 @@ services:
       MSSQL_SA_PASSWORD: ${DATABASE_PASSWORD}
     volumes:
       - ./.docker/mssql:/var/opt/mssql
+      - ./data/database/backups:/var/opt/mssql/backups
