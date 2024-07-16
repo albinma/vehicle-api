@@ -2,8 +2,7 @@
 	"name": "vehicle-api",
 	"version": "1.0.50",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"dev": "bun run --watch src/index.ts",
+		"dev": "bun run --watch src/index.ts ",
 		"lint": "bun format && eslint .",
 		"lint:fix": "bun format:fix && eslint . --fix",
 		"format": "prettier --check .",
@@ -11,9 +10,12 @@
 		"prepare": "husky"
 	},
 	"dependencies": {
+		"@bogeychan/elysia-logger": "0.1.0",
 		"@elysiajs/cors": "1.0.5",
+		"@sinclair/typebox": "0.32.34",
 		"elysia": "latest",
-		"elysia-helmet": "2.0.0"
+		"elysia-helmet": "2.0.0",
+		"pino-pretty": "11.2.1"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "19.3.0",

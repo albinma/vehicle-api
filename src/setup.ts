@@ -2,6 +2,7 @@ import cors from '@elysiajs/cors';
 import Elysia from 'elysia';
 import { helmet } from 'elysia-helmet';
 import { CUSTOM_HEADERS } from 'src/constants/headers';
+import { logger } from 'src/initializers/logger';
 
 export const createApp = () => {
 	const app = new Elysia()
@@ -14,10 +15,25 @@ export const createApp = () => {
 		)
 		// Adds a request id to the context
 		.decorate('id', crypto.randomUUID())
+		.use(
+			logger.into({
+				customProps({ id, params, query, headers }) {
+					return {
+						requestId: id,
+						params,
+						query,
+						headers,
+					};
+				},
+			})
+		)
 		.onRequest(({ id, set }) => {
 			set.headers[CUSTOM_HEADERS.RequestId] = id;
 		})
-		.get('/', () => 'Hello Elysia');
+		.get('/', ({ log }) => {
+			log.info('test');
+			return;
+		});
 
 	return app;
 };
