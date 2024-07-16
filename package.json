@@ -20,6 +20,7 @@
 		"elysia-helmet": "2.0.0",
 		"knex": "3.1.0",
 		"kysely": "0.27.4",
+		"lodash": "4.17.21",
 		"pino-pretty": "11.2.1",
 		"tarn": "3.0.2",
 		"tedious": "18.2.4"
@@ -30,6 +31,7 @@
 		"@elysiajs/eden": "1.0.14",
 		"@types/eslint": "8.56.10",
 		"@types/eslint-config-prettier": "6.11.3",
+		"@types/lodash": "4.17.7",
 		"bun-types": "latest",
 		"eslint": "9.7.0",
 		"eslint-config-prettier": "9.1.0",

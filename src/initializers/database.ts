@@ -48,8 +48,6 @@ export const db: VPICDatabase = new Kysely<vPICList_Lite1>({
 
 export type VPICDatabase = Kysely<vPICList_Lite1>;
 
-console.log(config.database);
-
 export const knexDb = knex({
 	client: 'mssql',
 	connection: {
@@ -60,3 +58,5 @@ export const knexDb = knex({
 		port: 1433,
 	},
 });
+
+export type VPICKnexDatabase = typeof knexDb;

@@ -3,9 +3,15 @@ import swagger from '@elysiajs/swagger';
 import Elysia, { t } from 'elysia';
 import { helmet } from 'elysia-helmet';
 import { CUSTOM_HEADERS } from 'src/constants/headers';
+import { SearchRepository } from 'src/database/repositories/search.repository';
+import { SearchService } from 'src/domain/services/search.service';
+import { knexDb } from 'src/initializers/database';
 import { logger } from 'src/initializers/logger';
 
 export const createApp = () => {
+	const searchRepository = new SearchRepository(knexDb);
+	const searchService = new SearchService(searchRepository);
+
 	const app = new Elysia()
 		.use(cors())
 		.use(
@@ -45,17 +51,10 @@ export const createApp = () => {
 		.group('/api/v1', (api) =>
 			api.get(
 				'/vin/:vin',
-				({ params: { vin } }) => {
+				async ({ params: { vin } }) => {
+					const result = await searchService.searchByVin(vin);
 					return {
-						vin,
-						suggestedVin: null,
-						make: 'Toyota',
-						model: 'Tacoma',
-						year: 2002,
-						attributes: {
-							engine: 'V6',
-							test: 45,
-						},
+						...result,
 					};
 				},
 				{
@@ -64,8 +63,10 @@ export const createApp = () => {
 					}),
 					response: t.Object({
 						vin: t.String({ minLength: 17, maxLength: 17 }),
-						suggestedVin: t.Nullable(t.String({ minLength: 17, maxLength: 17 })),
+						suggestedVIN: t.Nullable(t.String({ minLength: 17, maxLength: 17 })),
+						makeId: t.Number(),
 						make: t.String(),
+						modelId: t.Number(),
 						model: t.String(),
 						year: t.Number(),
 						attributes: t.Nullable(t.Object({}, { additionalProperties: t.Union([t.String(), t.Number()]) })),
