@@ -1,5 +1,5 @@
 import cors from '@elysiajs/cors';
-import Elysia from 'elysia';
+import Elysia, { t } from 'elysia';
 import { helmet } from 'elysia-helmet';
 import { CUSTOM_HEADERS } from 'src/constants/headers';
 import { logger } from 'src/initializers/logger';
@@ -30,10 +30,17 @@ export const createApp = () => {
 				},
 			})
 		)
-		.get('/', ({ log }) => {
-			log.info('test');
-			return;
-		});
+		.get(
+			'/',
+			() => ({
+				message: 'Hi!',
+			}),
+			{
+				response: t.Object({
+					message: t.String(),
+				}),
+			}
+		);
 
 	return app;
 };
