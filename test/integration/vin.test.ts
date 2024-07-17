@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it } from 'bun:test';
 import { App } from 'src';
-import { VehicleSearchByVinError } from 'src/domain/errors/vehicle-search-by-vin.error';
+import { SearchByVinError } from 'src/domain/errors/search-by-vin.error';
 import { createApp } from 'src/setup';
 
 const baseUrl = 'http://localhost/api/v1';
@@ -109,7 +109,7 @@ describe('GET /vin/:vin', () => {
 		const vin = '5TEWN72N82Z891172'; // wrong last digit
 		const request = new Request(`${resourceUrl}/${vin}`);
 		const expectedBody = {
-			code: VehicleSearchByVinError.name,
+			code: SearchByVinError.name,
 			message: 'Failed to decode VIN',
 			data: {
 				vin,

@@ -3,15 +3,24 @@ import swagger from '@elysiajs/swagger';
 import Elysia, { t } from 'elysia';
 import { helmet } from 'elysia-helmet';
 import { CUSTOM_HEADERS } from 'src/constants/headers';
-import { SearchRepository } from 'src/database/repositories/search.repository';
-import { VehicleSearchByVinError } from 'src/domain/errors/vehicle-search-by-vin.error';
-import { SearchService } from 'src/domain/services/search.service';
+import { MakeRepository } from 'src/database/repositories/make.repository';
+import { VinRepository } from 'src/database/repositories/vin.repository';
+import { YearRepository } from 'src/database/repositories/year.repository';
+import { SearchByVinError } from 'src/domain/errors/search-by-vin.error';
+import { MakeService } from 'src/domain/services/make.service';
+import { VinService } from 'src/domain/services/vin.service';
+import { YearService } from 'src/domain/services/year.service';
 import { knexDb } from 'src/initializers/database';
 import { logger } from 'src/initializers/logger';
+import { LookupsSchema } from 'src/schemas/common';
 
 export const createApp = () => {
-	const searchRepository = new SearchRepository(knexDb);
-	const searchService = new SearchService(searchRepository);
+	const searchRepository = new VinRepository(knexDb);
+	const searchService = new VinService(searchRepository);
+	const yearRepository = new YearRepository(knexDb);
+	const yearService = new YearService(yearRepository);
+	const makeRepository = new MakeRepository(knexDb);
+	const makeService = new MakeService(makeRepository);
 
 	const app = new Elysia()
 		.use(cors())
@@ -49,12 +58,12 @@ export const createApp = () => {
 			})
 		)
 		.error({
-			VehicleSearchByVinError,
+			SearchByVinError,
 		})
 		.onError(({ error, code, set }) => {
 			logger.error(error);
 			switch (code) {
-				case 'VehicleSearchByVinError':
+				case 'SearchByVinError':
 					set.status = 422;
 					return {
 						code,
@@ -99,7 +108,7 @@ export const createApp = () => {
 				.get(
 					'/years',
 					async () => {
-						const years = await searchService.getAllYears();
+						const years = await yearService.getAllYears();
 						return years;
 					},
 					{
@@ -108,6 +117,37 @@ export const createApp = () => {
 							tags: ['Search'],
 						},
 					}
+				)
+				.group('/makes', (makesApi) =>
+					makesApi
+						.get(
+							'/',
+							async () => {
+								const makes = await makeService.getAllMakes();
+
+								return makes;
+							},
+							{
+								response: LookupsSchema,
+							}
+						)
+						.get(
+							'/by-year/:year',
+							async ({ params: { year } }) => {
+								const makes = await makeService.getMakesByYear(year);
+
+								return makes;
+							},
+							{
+								params: t.Object({
+									year: t
+										.Transform(t.String({ minimum: 0 }))
+										.Decode((year) => Number(year))
+										.Encode((year) => year.toString()),
+								}),
+								response: LookupsSchema,
+							}
+						)
 				)
 		);
 

@@ -1,8 +1,8 @@
-import { ISearchRepository, VehicleElements } from 'src/database/repositories/search.repository';
+import { IVinRepository, VehicleElements } from 'src/database/repositories/vin.repository';
 import { camelCase, capitalize } from 'lodash';
-import { VehicleSearchByVinError } from 'src/domain/errors/vehicle-search-by-vin.error';
+import { SearchByVinError } from 'src/domain/errors/search-by-vin.error';
 
-export type VehicleSearchResult = {
+export type SearchByVinResult = {
 	vin: string;
 	suggestedVIN: string | null;
 	makeId: number;
@@ -15,20 +15,15 @@ export type VehicleSearchResult = {
 	};
 };
 
-export interface ISearchService {
-	getAllYears(): Promise<number[]>;
-	searchByVin(vin: string): Promise<VehicleSearchResult>;
+export interface IVinService {
+	searchByVin(vin: string): Promise<SearchByVinResult>;
 }
 
-export class SearchService implements ISearchService {
-	constructor(readonly repository: ISearchRepository) {}
+export class VinService implements IVinService {
+	constructor(readonly vinRepository: IVinRepository) {}
 
-	async getAllYears(): Promise<number[]> {
-		return this.repository.getAllYears();
-	}
-
-	async searchByVin(vin: string): Promise<VehicleSearchResult> {
-		const vehicleElements = await this.repository.searchByVin(vin);
+	async searchByVin(vin: string): Promise<SearchByVinResult> {
+		const vehicleElements = await this.vinRepository.searchByVin(vin);
 		const excludeElements: (keyof VehicleElements)[] = [
 			'Make',
 			'MakeId',
@@ -69,7 +64,7 @@ export class SearchService implements ISearchService {
 					attributes: elements,
 				};
 			} else {
-				throw new VehicleSearchByVinError('Failed to decode VIN', {
+				throw new SearchByVinError('Failed to decode VIN', {
 					vin,
 				});
 			}
@@ -77,7 +72,7 @@ export class SearchService implements ISearchService {
 			const errorText = vehicleElements.ErrorText ? vehicleElements.ErrorText.split('-')[1].trim() : null;
 			const errorCode = vehicleElements.ErrorCode;
 
-			throw new VehicleSearchByVinError('Failed to decode VIN', {
+			throw new SearchByVinError('Failed to decode VIN', {
 				vin,
 				errorText,
 				errorCode,

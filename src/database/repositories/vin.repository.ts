@@ -1,4 +1,4 @@
-import { DecodingOutput } from 'src/database/db';
+import { DecodingOutput, Make } from 'src/database/db';
 import { knexDb, VPICKnexDatabase } from 'src/initializers/database';
 
 export type VehicleElements = {
@@ -247,19 +247,12 @@ export type VehicleElements = {
 	Windows?: number | null;
 };
 
-export interface ISearchRepository {
-	getAllYears(): Promise<number[]>;
+export interface IVinRepository {
 	searchByVin(vin: string): Promise<VehicleElements>;
 }
 
-export class SearchRepository implements ISearchRepository {
+export class VinRepository implements IVinRepository {
 	constructor(readonly db: VPICKnexDatabase) {}
-
-	async getAllYears(): Promise<number[]> {
-		const data = await knexDb.from('WMIYearValidChars').distinct<{ year: number }[]>('year');
-
-		return data.map((d) => d.year);
-	}
 
 	async searchByVin(vin: string): Promise<VehicleElements> {
 		const data = await this.db.raw<DecodingOutput[]>(`EXEC spVinDecode ?`, [vin]);

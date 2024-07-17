@@ -1,13 +1,13 @@
 import { describe, expect, it, mock } from 'bun:test';
-import { ISearchRepository, VehicleElements } from 'src/database/repositories/search.repository';
-import { SearchService, VehicleSearchResult } from 'src/domain/services/search.service';
+import { IVinRepository, VehicleElements } from 'src/database/repositories/vin.repository';
+import { VinService, SearchByVinResult } from 'src/domain/services/vin.service';
 
-describe(SearchService.name, () => {
-	describe(SearchService.prototype.searchByVin.name, () => {
+describe(VinService.name, () => {
+	describe(VinService.prototype.searchByVin.name, () => {
 		it('should return a vehicle search result', async () => {
 			// arrange
 			const vin = '5TEWN72N82Z891171';
-			const expectedResult: VehicleSearchResult = {
+			const expectedResult: SearchByVinResult = {
 				vin,
 				suggestedVIN: null,
 				makeId: 1,
@@ -33,12 +33,11 @@ describe(SearchService.name, () => {
 				})
 			);
 
-			const searchRepositoryMock: ISearchRepository = {
+			const searchRepositoryMock: IVinRepository = {
 				searchByVin,
-				getAllYears: mock(),
 			};
 
-			const service = new SearchService(searchRepositoryMock);
+			const service = new VinService(searchRepositoryMock);
 
 			// act
 			const result = await service.searchByVin(vin);
