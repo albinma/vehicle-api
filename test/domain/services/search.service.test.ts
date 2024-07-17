@@ -35,6 +35,7 @@ describe(SearchService.name, () => {
 
 			const searchRepositoryMock: ISearchRepository = {
 				searchByVin,
+				getAllYears: mock(),
 			};
 
 			const service = new SearchService(searchRepositoryMock);

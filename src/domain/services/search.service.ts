@@ -16,11 +16,17 @@ export type VehicleSearchResult = {
 };
 
 export interface ISearchService {
+	getAllYears(): Promise<number[]>;
 	searchByVin(vin: string): Promise<VehicleSearchResult>;
 }
 
 export class SearchService implements ISearchService {
 	constructor(readonly repository: ISearchRepository) {}
+
+	async getAllYears(): Promise<number[]> {
+		return this.repository.getAllYears();
+	}
+
 	async searchByVin(vin: string): Promise<VehicleSearchResult> {
 		const vehicleElements = await this.repository.searchByVin(vin);
 		const excludeElements: (keyof VehicleElements)[] = [

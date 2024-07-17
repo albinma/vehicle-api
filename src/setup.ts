@@ -68,33 +68,47 @@ export const createApp = () => {
 		})
 		.get('/', () => ({}))
 		.group('/api/v1', (api) =>
-			api.get(
-				'/vin/:vin',
-				async ({ params: { vin } }) => {
-					const result = await searchService.searchByVin(vin);
-					return {
-						...result,
-					};
-				},
-				{
-					params: t.Object({
-						vin: t.String({ minLength: 17, maxLength: 17 }),
-					}),
-					response: t.Object({
-						vin: t.String({ minLength: 17, maxLength: 17 }),
-						suggestedVIN: t.Nullable(t.String({ minLength: 17, maxLength: 17 })),
-						makeId: t.Number(),
-						make: t.String(),
-						modelId: t.Number(),
-						model: t.String(),
-						year: t.Number(),
-						attributes: t.Nullable(t.Object({}, { additionalProperties: t.Union([t.String(), t.Number()]) })),
-					}),
-					detail: {
-						tags: ['Search'],
+			api
+				.get(
+					'/vin/:vin',
+					async ({ params: { vin } }) => {
+						const result = await searchService.searchByVin(vin);
+						return {
+							...result,
+						};
 					},
-				}
-			)
+					{
+						params: t.Object({
+							vin: t.String({ minLength: 17, maxLength: 17 }),
+						}),
+						response: t.Object({
+							vin: t.String({ minLength: 17, maxLength: 17 }),
+							suggestedVIN: t.Nullable(t.String({ minLength: 17, maxLength: 17 })),
+							makeId: t.Number(),
+							make: t.String(),
+							modelId: t.Number(),
+							model: t.String(),
+							year: t.Number(),
+							attributes: t.Nullable(t.Object({}, { additionalProperties: t.Union([t.String(), t.Number()]) })),
+						}),
+						detail: {
+							tags: ['Search'],
+						},
+					}
+				)
+				.get(
+					'/years',
+					async () => {
+						const years = await searchService.getAllYears();
+						return years;
+					},
+					{
+						response: t.Array(t.Number()),
+						detail: {
+							tags: ['Search'],
+						},
+					}
+				)
 		);
 
 	return app;
