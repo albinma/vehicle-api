@@ -4,6 +4,7 @@ import Elysia, { t } from 'elysia';
 import { helmet } from 'elysia-helmet';
 import { CUSTOM_HEADERS } from 'src/constants/headers';
 import { SearchRepository } from 'src/database/repositories/search.repository';
+import { VehicleSearchByVinError } from 'src/domain/errors/vehicle-search-by-vin.error';
 import { SearchService } from 'src/domain/services/search.service';
 import { knexDb } from 'src/initializers/database';
 import { logger } from 'src/initializers/logger';
@@ -47,6 +48,24 @@ export const createApp = () => {
 				},
 			})
 		)
+		.error({
+			VehicleSearchByVinError,
+		})
+		.onError(({ error, code, set }) => {
+			logger.error(error);
+			switch (code) {
+				case 'VehicleSearchByVinError':
+					set.status = 422;
+					return {
+						code,
+						message: error.message,
+						data: error.data,
+					};
+				case 'VALIDATION':
+					set.status = 400;
+					return error.toResponse();
+			}
+		})
 		.get('/', () => ({}))
 		.group('/api/v1', (api) =>
 			api.get(

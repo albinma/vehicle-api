@@ -1,4 +1,4 @@
-import { sql } from 'kysely';
+// import { sql } from 'kysely';
 import { db, knexDb } from 'src/initializers/database';
 
 try {
