@@ -3,18 +3,22 @@ import swagger from '@elysiajs/swagger';
 import Elysia, { t } from 'elysia';
 import { helmet } from 'elysia-helmet';
 import { CUSTOM_HEADERS } from 'src/constants/headers';
+import { LookupRepository } from 'src/database/repositories/lookup.repository';
 import { MakeRepository } from 'src/database/repositories/make.repository';
 import { ModelRepository } from 'src/database/repositories/model.repository';
 import { VinRepository } from 'src/database/repositories/vin.repository';
 import { YearRepository } from 'src/database/repositories/year.repository';
+import { ResourceNotFoundError } from 'src/domain/errors/resource-not-found.error';
 import { SearchByVinError } from 'src/domain/errors/search-by-vin.error';
+import { ServiceError } from 'src/domain/errors/service.error';
 import { MakeService } from 'src/domain/services/make.service';
 import { ModelService } from 'src/domain/services/model.service';
 import { VinService } from 'src/domain/services/vin.service';
 import { YearService } from 'src/domain/services/year.service';
 import { knexDb } from 'src/initializers/database';
 import { logger } from 'src/initializers/logger';
-import { LookupsSchema } from 'src/schemas/common';
+import { LookupsSchema, StringAsNumberSchema } from 'src/schemas/common';
+import { ModelAttributesSchema } from 'src/schemas/models.schemas';
 import { SearchByVinResultSchema } from 'src/schemas/vin.schemas';
 
 export const createApp = () => {
@@ -24,8 +28,9 @@ export const createApp = () => {
 	const yearService = new YearService(yearRepository);
 	const makeRepository = new MakeRepository(knexDb);
 	const modelRepository = new ModelRepository(knexDb);
+	const lookupRepository = new LookupRepository(knexDb);
 	const makeService = new MakeService(makeRepository);
-	const modelService = new ModelService(modelRepository);
+	const modelService = new ModelService(modelRepository, lookupRepository);
 
 	const app = new Elysia()
 		.use(cors())
@@ -64,12 +69,22 @@ export const createApp = () => {
 		)
 		.error({
 			SearchByVinError,
+			ResourceNotFoundError,
+			ServiceError,
 		})
 		.onError(({ error, code, set }) => {
 			logger.error(error);
 			switch (code) {
+				case 'ServiceError':
 				case 'SearchByVinError':
 					set.status = 422;
+					return {
+						code,
+						message: error.message,
+						data: error.data,
+					};
+				case 'ResourceNotFoundError':
+					set.status = 404;
 					return {
 						code,
 						message: error.message,
@@ -136,10 +151,7 @@ export const createApp = () => {
 							},
 							{
 								params: t.Object({
-									year: t
-										.Transform(t.String())
-										.Decode((value) => Number(value))
-										.Encode((value) => String(value)),
+									year: StringAsNumberSchema,
 								}),
 								response: LookupsSchema,
 							}
@@ -153,18 +165,27 @@ export const createApp = () => {
 							},
 							{
 								params: t.Object({
-									id: t
-										.Transform(t.String())
-										.Decode((value) => Number(value))
-										.Encode((value) => String(value)),
-									year: t
-										.Transform(t.String())
-										.Decode((value) => Number(value))
-										.Encode((value) => String(value)),
+									id: StringAsNumberSchema,
+									year: StringAsNumberSchema,
 								}),
 								response: LookupsSchema,
 							}
 						)
+				)
+				.get(
+					'/models/:id/:year/attributes',
+					async ({ params: { id, year } }) => {
+						const attributes = await modelService.getModelAttributesByIdAndYear(id, year);
+
+						return attributes;
+					},
+					{
+						params: t.Object({
+							id: StringAsNumberSchema,
+							year: StringAsNumberSchema,
+						}),
+						response: ModelAttributesSchema,
+					}
 				)
 		);
 

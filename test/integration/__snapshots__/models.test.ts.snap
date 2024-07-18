@@ -1,0 +1,506 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GET /models GET /:id/:year/attributes should respond with 200 Ok - attributes for model and year 1`] = `
+[
+  {
+    "code": "bodyCabType",
+    "description": "Cab type applies to both pickup truck and other medium- and heavy-duty trucks. The cab or cabin of a truck is the inside space in a truck where the driver is seated. For pickup trucks, the cab type is categorized by the combination number of doors and number of rows for seating. For medium- and heavy-duty trucks (MDHD), the cab type is categorized by the relative location of engine and cab. For pickup trucks, there are four cab types. Regular: 2 door, 1 row of seats Extra/Super/Quad/Double/King/Extended: 2 doors, 2 rows of seats Crew/Super Crew/Crew Max: 4 doors, 2 rows of seats Mega: 4 doors, 2 rows of seats (with a bigger cabin than crew cab type) For medium- and heavy-duty (MDHD) trucks, there are several categories as listed below. Cab Beside Engine CAE: Cab Above Engine CBE: Cab Behind Engine COE: Cab Over Engine or Flat Nose: Driver sits on top of the front axle and engine LCF: Low Cab Forward Conventional: Driver sits behind the engine Non-Tilt Tilt",
+    "name": "Cab Type",
+    "values": [
+      {
+        "id": 3,
+        "value": "Regular",
+        "vinSchemaIds": [
+          5691,
+          6869,
+        ],
+      },
+      {
+        "id": 2,
+        "value": "Extra/Super/Quad/Double/King/Extended",
+        "vinSchemaIds": [
+          5691,
+          6869,
+        ],
+      },
+    ],
+  },
+  {
+    "code": "bodyClass",
+    "description": "Body Class presents the body type based on 49 CFR 565.12(b): "Body type means the general configuration or shape of a vehicle distinguished by such characteristics as the number of doors or windows, cargo-carrying features and the roofline (e.g., sedan, fastback, hatchback)." Definitions are not provided for individual body types in the regulation.",
+    "name": "Body Class",
+    "values": [
+      {
+        "id": 60,
+        "value": "Pickup",
+        "vinSchemaIds": [
+          6869,
+          5691,
+        ],
+      },
+    ],
+  },
+  {
+    "code": "brakeSystemType",
+    "description": "Brake system type is the type of brake systems used to stop and hold the vehicle or combination of motor vehicles.",
+    "name": "Brake System Type",
+    "values": [
+      {
+        "id": 2,
+        "value": "Hydraulic",
+        "vinSchemaIds": [
+          6869,
+          5691,
+        ],
+      },
+    ],
+  },
+  {
+    "code": "displacementL",
+    "description": "Engine displacement (in liters) is the volume swept by all the pistons inside the cylinders of a reciprocating engine in a single movement from top dead center to bottom dead center.",
+    "name": "Displacement (L)",
+    "values": [
+      {
+        "id": null,
+        "value": 2.4,
+        "vinSchemaIds": [
+          6869,
+          5691,
+        ],
+      },
+      {
+        "id": null,
+        "value": 2.7,
+        "vinSchemaIds": [
+          6869,
+          5691,
+        ],
+      },
+      {
+        "id": null,
+        "value": 3.4,
+        "vinSchemaIds": [
+          6869,
+          5691,
+        ],
+      },
+    ],
+  },
+  {
+    "code": "driveType",
+    "description": "Drive type stores information about vehicle drivetrain configuration. The most common drive types for passenger cars, crossover vehicles, and pickup trucks are front-wheel drive (FWD), rear-wheel drive (RWD), all-wheel drive (AWD), and 4-wheel drive (4WD).",
+    "name": "Drive Type",
+    "values": [
+      {
+        "id": 7,
+        "value": "4x2",
+        "vinSchemaIds": [
+          5691,
+          6869,
+        ],
+      },
+      {
+        "id": 2,
+        "value": "4WD/4-Wheel Drive/4x4",
+        "vinSchemaIds": [
+          5691,
+          6869,
+        ],
+      },
+    ],
+  },
+  {
+    "code": "engineConfiguration",
+    "description": "Engine configuration defines how engine cylinders are arranged. Common values are V6 for V-shaped arrangement, I4 or L4 for in-line arrangement.",
+    "name": "Engine Configuration",
+    "values": [
+      {
+        "id": 2,
+        "value": "V-Shaped",
+        "vinSchemaIds": [
+          6869,
+          5691,
+        ],
+      },
+      {
+        "id": 1,
+        "value": "In-Line",
+        "vinSchemaIds": [
+          6869,
+          5691,
+        ],
+      },
+    ],
+  },
+  {
+    "code": "engineCylinders",
+    "description": "This is a numerical field to store the number of cylinders in an engine. Common values for passenger cars are 4 or 6.",
+    "name": "Engine Number of Cylinders",
+    "values": [
+      {
+        "id": null,
+        "value": 4,
+        "vinSchemaIds": [
+          5691,
+          6869,
+        ],
+      },
+      {
+        "id": null,
+        "value": 6,
+        "vinSchemaIds": [
+          5691,
+          6869,
+        ],
+      },
+    ],
+  },
+  {
+    "code": "engineHp",
+    "description": "Engine brake is the horsepower (hp) at the engine output shaft. Engine Brake (hp) From is the lower value of the range.",
+    "name": "Engine Brake (hp) From",
+    "values": [
+      {
+        "id": null,
+        "value": 150,
+        "vinSchemaIds": [
+          5691,
+          6869,
+        ],
+      },
+      {
+        "id": null,
+        "value": 190,
+        "vinSchemaIds": [
+          5691,
+          6869,
+        ],
+      },
+      {
+        "id": null,
+        "value": 142,
+        "vinSchemaIds": [
+          6869,
+        ],
+      },
+    ],
+  },
+  {
+    "code": "engineModel",
+    "description": "Engine model is a name that a manufacturer applies to a family of engine.",
+    "name": "Engine Model",
+    "values": [
+      {
+        "id": null,
+        "value": "3RZ-FE",
+        "vinSchemaIds": [
+          5691,
+          6869,
+        ],
+      },
+      {
+        "id": null,
+        "value": "5VZ-FE",
+        "vinSchemaIds": [
+          5691,
+          6869,
+        ],
+      },
+      {
+        "id": null,
+        "value": "2RZ-FE",
+        "vinSchemaIds": [
+          5691,
+          6869,
+        ],
+      },
+    ],
+  },
+  {
+    "code": "fuelTypePrimary",
+    "description": "Fuel type defines the fuel used to power the vehicle. For vehicles that have two power sources, such as plug-in hybrid vehicle, both primary fuel type and secondary fuel type will be provided.",
+    "name": "Fuel Type - Primary",
+    "values": [
+      {
+        "id": 4,
+        "value": "Gasoline",
+        "vinSchemaIds": [
+          6869,
+          5691,
+        ],
+      },
+    ],
+  },
+  {
+    "code": "gvwr",
+    "description": "Gross vehicle weight rating (GVWR) is the maximum operating weight of a vehicle including the vehicle's chassis, body, engine, engine fluids, fuel, accessories, driver, passengers and cargo, but excluding that of the trailers. Per 49 CFR 565.15, Class 1 is further broken down to Class A-D; Class 2 is further broken down to Class E-H. This field captures the lower bound of GVWR range for the vehicle.",
+    "name": "Gross Vehicle Weight Rating From",
+    "values": [
+      {
+        "id": 12,
+        "value": "Class 1C: 4,001 - 5,000 lb (1,814 - 2,268 kg)",
+        "vinSchemaIds": [
+          5691,
+          6869,
+        ],
+      },
+      {
+        "id": 13,
+        "value": "Class 1D: 5,001 - 6,000 lb (2,268 - 2,722 kg)",
+        "vinSchemaIds": [
+          5691,
+          6869,
+        ],
+      },
+    ],
+  },
+  {
+    "code": "model",
+    "description": "Per 49 CFR 565, Model means a name that a manufacturer applies to a family of vehicles of the same type, make, line, series and body type.",
+    "name": "Model",
+    "values": [
+      {
+        "id": 2223,
+        "value": "Tacoma",
+        "vinSchemaIds": [
+          6869,
+          5691,
+        ],
+      },
+    ],
+  },
+  {
+    "code": "ncsaBodyType",
+    "description": "An internal NHTSA field to capture the body type of the vehicle.",
+    "name": "NCSA Body Type",
+    "values": [
+      {
+        "id": 34,
+        "value": "Light Pickup",
+        "vinSchemaIds": [
+          5691,
+          6869,
+        ],
+      },
+    ],
+  },
+  {
+    "code": "ncsaMake",
+    "description": "An internal NHTSA field to capture the Make of the vehicle.",
+    "name": "NCSA Make",
+    "values": [
+      {
+        "id": 49,
+        "value": "Toyota",
+        "vinSchemaIds": [
+          6869,
+          5691,
+        ],
+      },
+    ],
+  },
+  {
+    "code": "ncsaModel",
+    "description": "An internal NHTSA field to capture the Model of the vehicle.",
+    "name": "NCSA Model",
+    "values": [
+      {
+        "id": 49000472,
+        "value": "Tacoma",
+        "vinSchemaIds": [
+          5691,
+          6869,
+        ],
+      },
+    ],
+  },
+  {
+    "code": "note",
+    "description": "Note is used to store any additional information that does not correspond to any of the specified fields on the interface. This is a catch-all element for systems other than for engine, restraint system, brake and battery. Engine, restraint system, brake, and battery have their own note elements.",
+    "name": "Note",
+    "values": [
+      {
+        "id": null,
+        "value": "Standard Cab",
+        "vinSchemaIds": [
+          6869,
+        ],
+      },
+      {
+        "id": null,
+        "value": "Double Cab",
+        "vinSchemaIds": [
+          6869,
+        ],
+      },
+      {
+        "id": null,
+        "value": "Chassis: With 1/2 ton Independent Front Suspension",
+        "vinSchemaIds": [
+          5691,
+          6869,
+        ],
+      },
+      {
+        "id": null,
+        "value": "Extra Cab",
+        "vinSchemaIds": [
+          6869,
+        ],
+      },
+    ],
+  },
+  {
+    "code": "plantCity",
+    "description": "This data element captures the city of the manufacturing plant where the manufacturer affixes the VIN.",
+    "name": "Plant City",
+    "values": [
+      {
+        "id": null,
+        "value": "FREMONT",
+        "vinSchemaIds": [
+          5691,
+          6869,
+        ],
+      },
+    ],
+  },
+  {
+    "code": "plantCompanyName",
+    "description": "This data element captures the name of the company that owns the manufacturing plant  where the manufacturer affixes the VIN.",
+    "name": "Plant Company Name",
+    "values": [
+      {
+        "id": null,
+        "value": "New United Motor Manufacturing (NUMMI)",
+        "vinSchemaIds": [
+          5691,
+          6869,
+        ],
+      },
+    ],
+  },
+  {
+    "code": "plantCountry",
+    "description": "This data element captures the country of the manufacturing plant where the manufacturer affixes the VIN.",
+    "name": "Plant Country",
+    "values": [
+      {
+        "id": 6,
+        "value": "UNITED STATES (USA)",
+        "vinSchemaIds": [
+          6869,
+          5691,
+        ],
+      },
+    ],
+  },
+  {
+    "code": "plantState",
+    "description": "This data element captures the State or Province name within the Plant Country of the manufacturing plant where the manufacturer affixes the VIN.",
+    "name": "Plant State",
+    "values": [
+      {
+        "id": null,
+        "value": "CALIFORNIA",
+        "vinSchemaIds": [
+          6869,
+          5691,
+        ],
+      },
+    ],
+  },
+  {
+    "code": "series",
+    "description": "Per 49 CFR 565, Series means a name that a manufacturer applies to a subdivision of a "line" denoting price, size or weight identification and that is used by the manufacturer for marketing purposes.",
+    "name": "Series",
+    "values": [
+      {
+        "id": null,
+        "value": "RZN140L",
+        "vinSchemaIds": [
+          6869,
+          5691,
+        ],
+      },
+      {
+        "id": null,
+        "value": "RZN150L/VZN150L",
+        "vinSchemaIds": [
+          6869,
+          5691,
+        ],
+      },
+      {
+        "id": null,
+        "value": "RZN161L/VZN160L",
+        "vinSchemaIds": [
+          6869,
+          5691,
+        ],
+      },
+      {
+        "id": null,
+        "value": "RZN171L/VZN170L",
+        "vinSchemaIds": [
+          6869,
+          5691,
+        ],
+      },
+      {
+        "id": null,
+        "value": "RZN191L/RZN196L/VZN195L",
+        "vinSchemaIds": [
+          6869,
+          5691,
+        ],
+      },
+    ],
+  },
+  {
+    "code": "trim",
+    "description": "Trim levels further identify a vehicle by a particular set of special features. Higher trim levels either will add to the features of the base (entry-level model), or replace them with something else.",
+    "name": "Trim",
+    "values": [
+      {
+        "id": null,
+        "value": "DELUXE",
+        "vinSchemaIds": [
+          5691,
+          6869,
+        ],
+      },
+      {
+        "id": null,
+        "value": "SR5",
+        "vinSchemaIds": [
+          5691,
+        ],
+      },
+    ],
+  },
+  {
+    "code": "wheelBaseType",
+    "description": "This field describes the wheel base variations for some trucks and passenger cars, relative to other variants of the vehicle model. This field may have values such as short, standard, long, extra long, or super long.",
+    "name": "Wheel Base Type",
+    "values": [
+      {
+        "id": 4,
+        "value": "Extra Long",
+        "vinSchemaIds": [
+          5691,
+          6869,
+        ],
+      },
+      {
+        "id": 2,
+        "value": "Short",
+        "vinSchemaIds": [
+          5691,
+          6869,
+        ],
+      },
+    ],
+  },
+]
+`;

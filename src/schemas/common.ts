@@ -6,3 +6,8 @@ export const LookupSchema = t.Object({
 });
 
 export const LookupsSchema = t.Array(LookupSchema);
+
+export const StringAsNumberSchema = t
+	.Transform(t.String())
+	.Decode((value) => Number(value))
+	.Encode((value) => String(value));
