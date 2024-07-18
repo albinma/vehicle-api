@@ -1,5 +1,5 @@
-import { DecodingOutput, Make } from 'src/database/db';
-import { knexDb, VPICKnexDatabase } from 'src/initializers/database';
+import { DecodingOutput } from 'src/database/db';
+import { VPICKnexDatabase } from 'src/initializers/database';
 
 export type VehicleElements = {
 	ABS?: string | null;

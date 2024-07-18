@@ -11,7 +11,7 @@ export type SearchByVinResult = {
 	model: string;
 	year: number;
 	attributes: {
-		[element: string]: string | number | undefined;
+		[element: string]: string | number;
 	};
 };
 
@@ -50,7 +50,12 @@ export class VinService implements IVinService {
 					Object.keys(vehicleElements)
 						.map((key) => key as keyof VehicleElements)
 						.filter((key) => !excludeElements.includes(key))
-						.map((code) => [camelCase(code), vehicleElements[code] as string | undefined])
+						.map((code) => [
+							camelCase(code),
+							typeof vehicleElements[code] === 'string'
+								? (vehicleElements[code] as string)
+								: Number(vehicleElements[code]),
+						])
 				);
 
 				return {

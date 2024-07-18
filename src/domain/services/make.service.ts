@@ -1,4 +1,4 @@
-import { IMakeRepository, MakeModel } from 'src/database/repositories/make.repository';
+import { IMakeRepository } from 'src/database/repositories/make.repository';
 import { Lookup } from 'src/domain/types/common';
 import { toLookup } from 'src/domain/utils/maps';
 

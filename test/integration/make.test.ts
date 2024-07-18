@@ -1,7 +1,6 @@
 import { beforeAll, describe, expect, it } from 'bun:test';
 import { App } from 'src';
 import { createApp } from 'src/setup';
-import { expectedMakesByYear } from 'test/integration/data/expected-makes';
 
 const baseUrl = 'http://localhost/api/v1';
 

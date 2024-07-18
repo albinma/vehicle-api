@@ -4,15 +4,18 @@ import Elysia, { t } from 'elysia';
 import { helmet } from 'elysia-helmet';
 import { CUSTOM_HEADERS } from 'src/constants/headers';
 import { MakeRepository } from 'src/database/repositories/make.repository';
+import { ModelRepository } from 'src/database/repositories/model.repository';
 import { VinRepository } from 'src/database/repositories/vin.repository';
 import { YearRepository } from 'src/database/repositories/year.repository';
 import { SearchByVinError } from 'src/domain/errors/search-by-vin.error';
 import { MakeService } from 'src/domain/services/make.service';
+import { ModelService } from 'src/domain/services/model.service';
 import { VinService } from 'src/domain/services/vin.service';
 import { YearService } from 'src/domain/services/year.service';
 import { knexDb } from 'src/initializers/database';
 import { logger } from 'src/initializers/logger';
 import { LookupsSchema } from 'src/schemas/common';
+import { SearchByVinResultSchema } from 'src/schemas/vin.schemas';
 
 export const createApp = () => {
 	const searchRepository = new VinRepository(knexDb);
@@ -20,7 +23,9 @@ export const createApp = () => {
 	const yearRepository = new YearRepository(knexDb);
 	const yearService = new YearService(yearRepository);
 	const makeRepository = new MakeRepository(knexDb);
+	const modelRepository = new ModelRepository(knexDb);
 	const makeService = new MakeService(makeRepository);
+	const modelService = new ModelService(modelRepository);
 
 	const app = new Elysia()
 		.use(cors())
@@ -90,16 +95,7 @@ export const createApp = () => {
 						params: t.Object({
 							vin: t.String({ minLength: 17, maxLength: 17 }),
 						}),
-						response: t.Object({
-							vin: t.String({ minLength: 17, maxLength: 17 }),
-							suggestedVIN: t.Nullable(t.String({ minLength: 17, maxLength: 17 })),
-							makeId: t.Number(),
-							make: t.String(),
-							modelId: t.Number(),
-							model: t.String(),
-							year: t.Number(),
-							attributes: t.Nullable(t.Object({}, { additionalProperties: t.Union([t.String(), t.Number()]) })),
-						}),
+						response: SearchByVinResultSchema,
 						detail: {
 							tags: ['Search'],
 						},
@@ -141,9 +137,30 @@ export const createApp = () => {
 							{
 								params: t.Object({
 									year: t
-										.Transform(t.String({ minimum: 0 }))
-										.Decode((year) => Number(year))
-										.Encode((year) => year.toString()),
+										.Transform(t.String())
+										.Decode((value) => Number(value))
+										.Encode((value) => String(value)),
+								}),
+								response: LookupsSchema,
+							}
+						)
+						.get(
+							'/:id/:year/models',
+							async ({ params: { id, year } }) => {
+								const models = await modelService.getModelsByMakeYear(id, year);
+
+								return models;
+							},
+							{
+								params: t.Object({
+									id: t
+										.Transform(t.String())
+										.Decode((value) => Number(value))
+										.Encode((value) => String(value)),
+									year: t
+										.Transform(t.String())
+										.Decode((value) => Number(value))
+										.Encode((value) => String(value)),
 								}),
 								response: LookupsSchema,
 							}
